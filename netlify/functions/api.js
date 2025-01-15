@@ -1,7 +1,10 @@
 import { Router } from 'express';
+import serverless from 'serverless-http';
 import bodyParser from 'body-parser';
-const api = new Router();
+const router = new Router();
 const jsonParser = bodyParser.json();
+
+const api = express();
 
 const productList = [
   {
@@ -28,27 +31,29 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-api.get('/products', async (req, res) => {
+router.get('/products', async (req, res) => {
   const products = productList.map((product) => ({ ...product }));
   products[random(0, products.length)].isPromo = true;
   return res.json(products);
 });
 
-api.get('/products/:id', async (req, res) => {
+router.get('/products/:id', async (req, res) => {
   const id = +req.params.id;
   const [product] = productList.filter((product) => product.id === id);
   return res.json(product);
 });
 
 const cartItems = [];
-api.get('/cart/items', async (req, res) => {
+router.get('/cart/items', async (req, res) => {
   return res.json(cartItems);
 });
 
-api.post('/cart/items', jsonParser, async (req, res) => {
+router.post('/cart/items', jsonParser, async (req, res) => {
   const watch = req.body;
   cartItems.push(watch);
   return res.status(200).end();
 });
 
-export default api;
+api.use('/api', router);
+
+export const handler = serverless(api);

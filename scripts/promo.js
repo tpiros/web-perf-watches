@@ -1,5 +1,5 @@
 const HOST = `https://webperf-start.netlify.app`;
-// const HOST = `${HOST}`;
+// const HOST = `http://localhost:3000`;
 window.addEventListener('DOMContentLoaded', async () => {
   const productList = await fetch(`${HOST}/api/products`);
   const products = await productList.json();

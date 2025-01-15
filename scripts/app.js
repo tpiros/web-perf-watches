@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cartBadge = document.getElementById('cartBadge');
 
     const cartItems = await getCartItems();
-    console.log({ cartItems });
     if (cartItems.length > 0) {
       cartBadge.style.display = 'flex';
       cartBadge.textContent = cartItems.length;
@@ -84,33 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       child.textContent = i;
       phantomEl.appendChild(child);
     }
-    performance.mark('analytics_end');
-    performance.measure('analytics', 'analytics_start', 'analytics_end');
-  }
-
-  async function collectAndSendAnalyticsUsingScheduler() {
-    performance.mark('analytics_start');
-
-    const phantomEl = document.createElement('div');
-    const TOTAL_ELEMENTS = 4_000_000;
-    const BATCH_SIZE = 2_000;
-    let currentIndex = 0;
-
-    while (currentIndex < TOTAL_ELEMENTS) {
-      await scheduler.postTask(
-        () => {
-          const end = Math.min(currentIndex + BATCH_SIZE, TOTAL_ELEMENTS);
-          for (let i = currentIndex; i < end; i++) {
-            const child = document.createElement('div');
-            child.textContent = i;
-            phantomEl.appendChild(child);
-          }
-          currentIndex += BATCH_SIZE;
-        },
-        { priority: 'background' }
-      );
-    }
-
     performance.mark('analytics_end');
     performance.measure('analytics', 'analytics_start', 'analytics_end');
   }

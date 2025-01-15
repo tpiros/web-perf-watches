@@ -1,4 +1,4 @@
-const HOST = `webperf-start.netlify.app`;
+const HOST = `https://webperf-start.netlify.app`;
 // const HOST = `${HOST}`;
 document.addEventListener('DOMContentLoaded', async () => {
   const cartIcon = document.getElementById('cartIcon');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   async function getCartItems() {
-    const response = await fetch('${HOST}/api/cart/items');
+    const response = await fetch(`${HOST}/api/cart/items`);
     const items = await response.json();
     return items;
   }
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   async function addToCart(watch) {
-    const response = await fetch('${HOST}/api/cart/items', {
+    const response = await fetch(`${HOST}/api/cart/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

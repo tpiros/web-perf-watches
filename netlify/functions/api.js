@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import serverless from 'serverless-http';
 import bodyParser from 'body-parser';
 const router = new Router();

@@ -1,4 +1,5 @@
-const HOST = `webperf-watch-base.netlify.app`;
+const HOST = `webperf-start.netlify.app`;
+// const HOST = `${HOST}`;
 document.addEventListener('DOMContentLoaded', async () => {
   const cartIcon = document.getElementById('cartIcon');
   cartIcon.addEventListener('click', () => {
@@ -12,13 +13,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   async function getCartItems() {
-    const response = await fetch('http://localhost:3000/api/cart/items');
+    const response = await fetch('${HOST}/api/cart/items');
     const items = await response.json();
     return items;
   }
 
   async function getWatchData(id) {
-    const response = await fetch(`http://localhost:3000/api/products/${id}`);
+    const response = await fetch(`${HOST}/api/products/${id}`);
     const data = await response.json();
     return data;
   }
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   async function addToCart(watch) {
-    const response = await fetch('http://localhost:3000/api/cart/items', {
+    const response = await fetch('${HOST}/api/cart/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

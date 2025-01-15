@@ -1,5 +1,2 @@
-// app.listen(3000, () => {
-//   console.log('Up and running on http://localhost:3000/');
-// });
-
+import api from './api';
 export const handler = serverless(api);
